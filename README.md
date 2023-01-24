@@ -3,7 +3,7 @@
 ## Quick start
 
 First, you will need to clone the repo.
-```
+```bash
 git clone https://github.com/alannagenin/web-query.git
 cd web-query
 ```
