@@ -9,10 +9,13 @@ LANGUAGES = {
 }
 
 class Query:
-    def __init__(self, query, lang='fr') -> None:
+    def __init__(self, query, index, documents, lang='fr') -> None:
         self.query = query
+        self.index = index
+        self.documents = documents
         self.stop_words = stopwords.words(LANGUAGES[lang])
         self.pattern = re.compile(r'([؟!\?]+|[:\.،؛»\]\)\}"«\[\(\{])')
+        self.tokens = []
 
 
     def tokenize_query(self):
@@ -30,13 +33,13 @@ class Query:
             tokens of the query splitted by space (deleting the stop words)
         '''
         text = self.pattern.sub(r' \1 ', self.query.replace('\n', ' ').replace('\t', ' '))
-        tokens = [word.lower() for word in text.split(' ') if word not in self.stop_words]
-        return tokens
+        self.tokens = [word.lower() for word in text.split(' ') if word not in self.stop_words]        
 
-    def find_documents_from_index(self):
-        pass
-
-
-if __name__ == "__main__":
-    query = Query(query="Karine Lacombe")
-    print(query.tokenize_query())
+    def find_token_in_document(self):
+        documents_id = set()
+        for token in self.tokens:
+            if token in self.index.keys():
+                for document_id in self.index[token].keys():
+                    if document_id not in documents_id:
+                        documents_id.add(int(document_id))
+        self.found_documents = sorted(documents_id)
