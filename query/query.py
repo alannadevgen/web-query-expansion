@@ -41,17 +41,15 @@ class Query:
         for token in self.tokens:
             if token in self.index.keys():
                 for document_id in self.index[token].keys():
-                    # if document_id not in documents_ids:
                     documents_ids.append(document_id)
                     documents[token] = self.index[token]
         if documents:
             self.found_documents = documents
-            print(self.found_documents)
         # if no token found in index
         else:
             self.found_documents = None
 
-    def find_documents_from_index(self):
+    def rank_documents_from_index(self):
         ranked_documents = {}
         for token in self.found_documents:
             for document in self.found_documents[token]:
@@ -59,3 +57,16 @@ class Query:
                     ranked_documents[document] += self.found_documents[token][document]['count']
                 else:
                     ranked_documents[document] = self.found_documents[token][document]['count']
+        # sort the dictionnary per value (decreasing)
+        self.ranked_documents = dict(sorted(ranked_documents.items(), key=lambda item: item[1], reverse=True))
+
+    def get_documents_from_ranking(self):
+        result = {}
+        i = 1
+        for document in self.ranked_documents:
+            result[i] = {
+                'title': self.documents[int(document)]['title'],
+                'url': self.documents[int(document)]['url']
+            }
+            i += 1
+        return result
