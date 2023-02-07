@@ -1,12 +1,13 @@
+import re
 import nltk
 from nltk.corpus import stopwords
 nltk.download('stopwords')
-import re
 
 LANGUAGES = {
     "fr": "french",
     "en": "english"
 }
+
 
 class Query:
     def __init__(self, query, index, documents, lang='fr') -> None:
@@ -17,7 +18,6 @@ class Query:
         self.pattern = re.compile(r'([؟!\?]+|[:\.،؛»\]\)\}"«\[\(\{])')
         self.tokens = []
 
-
     def tokenize_query(self):
         '''
         Tokenizes a query by returning its tokens
@@ -26,14 +26,17 @@ class Query:
         ----------
         text : str
             query text
-        
+
         Returns
         -------
         list
             tokens of the query splitted by space (deleting the stop words)
         '''
-        text = self.pattern.sub(r' \1 ', self.query.replace('\n', ' ').replace('\t', ' '))
-        self.tokens = [word.lower() for word in text.split(' ') if word not in self.stop_words]        
+        text = self.pattern.sub(
+            r' \1 ', self.query.replace('\n', ' ').replace('\t', ' '))
+        self.tokens = [
+            word.lower() for word in text.split(' ') if word not in self.stop_words
+        ]
 
     def find_token_in_document(self):
         documents_ids = []
@@ -58,15 +61,16 @@ class Query:
                 else:
                     ranked_documents[document] = self.found_documents[token][document]['count']
         # sort the dictionnary per value (decreasing)
-        self.ranked_documents = dict(sorted(ranked_documents.items(), key=lambda item: item[1], reverse=True))
+        self.ranked_documents = dict(
+            sorted(ranked_documents.items(), key=lambda item: item[1], reverse=True))
 
     def get_documents_from_ranking(self):
-        result = {}
-        i = 1
+        result = []
         for document in self.ranked_documents:
-            result[i] = {
-                'title': self.documents[int(document)]['title'],
-                'url': self.documents[int(document)]['url']
-            }
-            i += 1
+            result.append(
+                {
+                    'title': self.documents[int(document)]['title'],
+                    'url': self.documents[int(document)]['url']
+                }
+            )
         return result
