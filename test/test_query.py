@@ -112,6 +112,7 @@ class TestQuery(TestCase):
             query.result,
             [
                 {'title': 'Indice de référence des loyers (IRL) | Service-public.fr', 'url': 'https://www.service-public.fr/particuliers/actualites/A12956?xtor=RSS-111'},
-                {'title': "    IRL Indice de référence des loyers de l'INSEE    ", 'url': 'https://bail.dispofi.fr/IRL-indice-reference-loyers'}
+                {'title': "    IRL Indice de référence des loyers de l'INSEE    ", 'url': 'https://bail.dispofi.fr/IRL-indice-reference-loyers'},
+                {'infos': {'nb_docs': 500, 'nb_filtered_docs': 2}}
             ]
         )

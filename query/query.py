@@ -76,6 +76,14 @@ class Query:
                     'url': self.documents[int(document)]['url']
                 }
             )
+        result.append(
+                {
+                    'infos': {
+                        'nb_docs': len(self.documents),
+                        'nb_filtered_docs': len(result)
+                    }
+                }
+        )
         self.result = result
 
     def export_ranking(self, path: str, file: str):
