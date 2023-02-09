@@ -1,6 +1,5 @@
 import json
 import os
-from typing import Dict
 
 
 class Utils:
@@ -11,3 +10,13 @@ class Utils:
         with open(path, 'r') as json_file:
             json_data = json.loads(json_file.read())
             return json_data
+
+    def write_json_file(self, path, file, result):
+        with open(os.path.join(path, file), 'w') as file:
+            file.write(
+                json.dumps(
+                    result,
+                    ensure_ascii=False,
+                    indent=4
+                )
+            )
