@@ -33,12 +33,12 @@ python3 main.py --help
 ```
 
 By default, the values are:
-* `--index` "data/index.json" $\rightarrow$ Default index
-* `--documents` "data/documents.json" $\rightarrow$ Default documents
-* `--query` "recette de cuisine" $\rightarrow$ Query for cooking recipes
-* `--path` "." $\rightarrow$ Output results at the root of the project
-* `--file` "results.json" $\rightarrow$ Output query results in `results.json` file
-* `--lang` "fr" $\rightarrow$ French
+* `--index "data/index.json"` $\rightarrow$ Default index
+* `--documents "data/documents.json"` $\rightarrow$ Default documents
+* `--query "recette de cuisine"` $\rightarrow$ Query for cooking recipes
+* `--path "."` $\rightarrow$ Output results at the root of the project
+* `--file "results.json"` $\rightarrow$ Output query results in `results.json` file
+* `--lang "fr"` $\rightarrow$ French
 
 ## Contributors
 
