@@ -1,6 +1,6 @@
 # Web query expansion
 
-The aim of this project is to build a query ranking tool. A user types in a query and a list of relevant documents is returned. These documents are web pages that are described by their title and their URL. The results of the user's query are printed and stored in a `results.json` file by default. The documents are sorted by relevancy.
+The aim of this project is to build a query ranking tool. A user types in a query and a list of relevant documents is returned. These documents are web pages that are described by their title and their URL. By default, the results of the user's query are stored in a `results.json` file. The documents are sorted by relevancy.
 
 ## Quick start
 
