@@ -7,10 +7,16 @@ import click
 @click.option("--index", default="data/index.json", type=str, help="Path to index file.")
 @click.option("--documents", default="data/documents.json", type=str, help="Path to documents file.")
 @click.option("--query", default="recette de cuisine", type=str, help="Type your query.")
+@click.option("--path", default=".", type=str, help="Path to ouput results of the query.")
+@click.option("--file", default="results.json", type=str, help="File name to ouput results of the query.")
+@click.option("--lang", default="fr", type=click.Choice(['fr', 'en']), help="Language of the query.")
 def main(
     index,
     documents,
-    query
+    query,
+    path,
+    file,
+    lang
 ):
     utils = Utils()
     my_index = utils.read_json_file(index)
@@ -19,7 +25,10 @@ def main(
     user_query = Query(
         query=str(query),
         index=my_index,
-        documents=my_docs
+        documents=my_docs,
+        path=path,
+        file=file,
+        lang=lang
     )
     user_query.rank()
 
