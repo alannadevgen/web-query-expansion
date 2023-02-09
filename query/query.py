@@ -1,3 +1,4 @@
+from query.utils import Utils
 import re
 import nltk
 from nltk.corpus import stopwords
@@ -10,13 +11,15 @@ LANGUAGES = {
 
 
 class Query:
-    def __init__(self, query, index, documents, lang='fr') -> None:
+    def __init__(self, query, index, documents, path=".", file="results.json", lang='fr') -> None:
         self.query = query
         self.index = index
         self.documents = documents
         self.stop_words = stopwords.words(LANGUAGES[lang])
         self.pattern = re.compile(r'([؟!\?]+|[:\.،؛»\]\)\}"«\[\(\{])')
         self.tokens = []
+        self.path = path
+        self.file = file
 
     def tokenize_query(self):
         '''
@@ -73,4 +76,14 @@ class Query:
                     'url': self.documents[int(document)]['url']
                 }
             )
-        return result
+        self.result = result
+
+    def export_ranking(self, path: str, file: str):
+        Utils().write_json_file(path=path, file=file, result=self.result)
+
+    def rank(self):
+        self.tokenize_query()
+        self.find_token_in_document()
+        self.rank_documents_from_index()
+        self.get_documents_from_ranking()
+        self.export_ranking(path=self.path, file=self.file)
